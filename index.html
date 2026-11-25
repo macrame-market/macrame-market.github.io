@@ -52,7 +52,7 @@
         <h1 data-t="hero.h">Handmade macrame for your home</h1>
         <p class="lede" data-t="hero.p">Hanging chairs, terrace swings and wall pieces, in small, medium and large.</p>
         <div class="hero-actions">
-          <a class="btn" href="https://ig.me/m/macrame_markett"><svg width="16" height="16" aria-hidden="true"><use href="#ig"/></svg><span data-t="hero.cta">Enquire on Instagram</span></a>
+          <a class="btn" href="#collection"><span data-t="hero.cta">Order now</span></a>
           <a class="ulink" href="#collection" data-t="hero.link">Explore the collection</a>
         </div>
       </div>
@@ -104,10 +104,10 @@
       </div>
       <ol class="steps">
         <li><b data-t="st.1h">Choose</b><p data-t="st.1p">Pick the piece and the size: small, medium or large.</p></li>
-        <li><b data-t="st.2h">Message us</b><p data-t="st.2p">Send us the piece and the size on Instagram.</p></li>
-        <li><b data-t="st.3h">Confirm</b><p data-t="st.3p">We confirm the price and the delivery date before work begins.</p></li>
+        <li><b data-t="st.2h">Send your order</b><p data-t="st.2p">Fill in your name, phone and address on the product page.</p></li>
+        <li><b data-t="st.3h">We call you</b><p data-t="st.3p">We call you to confirm the price and the delivery date before work begins.</p></li>
       </ol>
-      <div class="center"><a class="btn" href="https://ig.me/m/macrame_markett"><svg width="16" height="16" aria-hidden="true"><use href="#ig"/></svg><span data-t="or.cta">Start an enquiry</span></a></div>
+      <div class="center"><a class="btn" href="#collection"><span data-t="or.cta">Choose your piece</span></a></div>
     </div>
   </section>
 
@@ -131,8 +131,9 @@
         <h2 class="h2" data-t="fq.h">Before you order</h2>
       </div>
       <div class="faq">
-        <details><summary data-t="q1">How do I place an order?</summary><p data-t="a1">Choose the piece and the size, then send us a message on Instagram. We reply with the price and the delivery date.</p></details>
+        <details><summary data-t="q1">How do I place an order?</summary><p data-t="a1">Open the piece you like, choose the size and fill in your details. We call you to confirm the price and the delivery date.</p></details>
         <details><summary data-t="q2">What sizes do you have?</summary><p data-t="a2">Every piece comes in small, medium and large. You will find the sizes on each product's page.</p></details>
+        <details><summary data-t="q6">How do I pay?</summary><p data-t="a6">After we confirm the price with you, you pay with InstaPay to dedro@instapay, or by scanning the code that appears after you send your order.</p></details>
         <details><summary data-t="q5">How long does an order take?</summary><p data-t="a5">It depends on the piece and the size. We confirm the date with you before work begins.</p></details>
       </div>
     </div>
@@ -159,7 +160,7 @@
 
   var AR = {
     'nav.collection':'المنتجات','nav.order':'طريقة الطلب','nav.faq':'أسئلة متكررة','nav.cta':'اسألنا',
-    'hero.cap':'شغل إيد، بيتعمل حسب طلبك','hero.h':'مكرمية شغل إيد تليق ببيتك','hero.p':'كراسي معلقة ومراجيح للتراس وقطع للحيطة، بمقاسات صغير ووسط وكبير.','hero.cta':'اطلب على انستجرام','hero.link':'شوف المنتجات','hero.alt':'مرجيحة مكرمية على تراس قدام المية',
+    'hero.cap':'شغل إيد، بيتعمل حسب طلبك','hero.h':'مكرمية شغل إيد تليق ببيتك','hero.p':'كراسي معلقة ومراجيح للتراس وقطع للحيطة، بمقاسات صغير ووسط وكبير.','hero.cta':'اطلب دلوقتي','hero.link':'شوف المنتجات','hero.alt':'مرجيحة مكرمية على تراس قدام المية',
     'col.cap':'المنتجات','col.h':'كل قطعة شغل إيد',
     'c1.h':'الكراسي المعلقة','c1.p':'كرسي مريح بمخدات، يعملك ركن هادي في أوضة النوم أو الصالة.',
     'c2.h':'مراجيح التراس','c2.p':'للتراس والشاليه والجنينة.',
@@ -169,13 +170,14 @@
     'view':'شوف المقاسات',
     'or.cap':'طريقة الطلب','or.h':'من أول رسالة لحد ما توصلك',
     'st.1h':'اختار','st.1p':'اختار القطعة والمقاس: صغير أو وسط أو كبير.',
-    'st.2h':'ابعتلنا','st.2p':'ابعتلنا القطعة والمقاس في رسالة على انستجرام.',
-    'st.3h':'نأكد معاك','st.3p':'بنقولك السعر وميعاد التسليم قبل ما نبدأ.',
-    'or.cta':'ابعتلنا رسالة',
+    'st.2h':'ابعت طلبك','st.2p':'اكتب اسمك ورقمك وعنوانك في صفحة المنتج.',
+    'st.3h':'هنكلمك','st.3p':'هنكلمك نأكد معاك السعر وميعاد التسليم قبل ما نبدأ.',
+    'or.cta':'اختار قطعتك',
     'hm.cap':'في بيوت عملائنا','hm.h':'قطعنا في بيوت عملائنا','hm.p':'صور القطع في بيوت عملائنا وآراءهم موجودة على صفحتنا على انستجرام.','hm.link':'شوفها على انستجرام','hm.a1':'مرجيحة مكرمية عليها ورد أحمر جنب زرعة','hm.a2':'مرجيحة مكرمية على تراس في الشمس',
     'fq.cap':'أسئلة متكررة','fq.h':'قبل ما تطلب',
-    'q1':'أطلب إزاي؟','a1':'اختار القطعة والمقاس، وابعتلنا رسالة على انستجرام، وهنرد عليك بالسعر وميعاد التسليم.',
+    'q1':'أطلب إزاي؟','a1':'افتح القطعة اللي عاجباك، اختار المقاس واكتب بياناتك، وهنكلمك نأكد معاك السعر وميعاد التسليم.',
     'q2':'إيه المقاسات المتاحة؟','a2':'كل قطعة ليها 3 مقاسات: صغير ووسط وكبير. هتلاقي المقاسات في صفحة كل منتج.',
+    'q6':'أدفع إزاي؟','a6':'بعد ما نأكد معاك السعر، بتدفع بانستاباي على dedro@instapay، أو تمسح الكود اللي بيظهرلك بعد ما تبعت الطلب.',
     'q5':'الطلب بياخد وقت قد إيه؟','a5':'على حسب القطعة والمقاس. بنتفق معاك على الميعاد قبل ما نبدأ.',
     'ft.by':'شغل إيد من m&g'
   };

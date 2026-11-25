@@ -41,6 +41,35 @@
   .facts dt{font-size:var(--cap);color:var(--fg-2);padding-top:.15rem}
   .facts dd{font-size:1.02rem}
 
+  /* order form */
+  .of{display:flex;flex-direction:column;gap:1rem;border-top:1px solid var(--rule-2);padding-top:1.3rem}
+  .of h3{font-family:var(--display);font-weight:400;font-size:1.45rem;line-height:1.3}
+  html[lang="ar"] .of h3{font-weight:500}
+  .of .row2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:.8rem}
+  .of label{display:flex;flex-direction:column;gap:.4rem;font-size:var(--cap);color:var(--fg-2)}
+  .of input,.of select,.of textarea{width:100%;min-height:46px;padding:.6rem .8rem;border:1px solid var(--rule-2);background:var(--cotton);color:var(--ink);font:inherit;font-size:1rem;border-radius:0}
+  .of textarea{min-height:80px;resize:vertical}
+  .of input:focus-visible,.of select:focus-visible,.of textarea:focus-visible{outline:2px solid var(--accent);outline-offset:0}
+  .of input[aria-invalid="true"],.of select[aria-invalid="true"]{border-color:#9B3B2A}
+  .of .err{color:#9B3B2A;font-size:.85rem;min-height:1.2em}
+  .of .btn{align-self:stretch;min-height:52px;font-size:.95rem}
+  .of .btn[disabled]{opacity:.6;cursor:wait}
+  .done{display:none;flex-direction:column;gap:.6rem;border-top:1px solid var(--rule-2);padding-top:1.3rem}
+  .done h3{font-family:var(--display);font-weight:400;font-size:1.6rem}
+  html[lang="ar"] .done h3{font-weight:500}
+  .done p{color:var(--fg-2)}
+  .pay{display:flex;gap:1.2rem;align-items:center;margin-top:.6rem;padding:1rem;background:var(--cotton);border:1px solid var(--rule)}
+  .pay img{width:140px;height:auto;flex:none;background:#fff}
+  .pay b{display:block;font-family:var(--display);font-weight:400;font-size:1.3rem;margin-bottom:.3rem}
+  html[lang="ar"] .pay b{font-weight:500}
+  .pay p{font-size:.92rem}
+  .pay-id{font-weight:500;color:var(--ink)!important;margin-top:.3rem;text-align:start}
+  @media (max-width:420px){.pay{flex-direction:column;align-items:flex-start}}
+  .sent .of{display:none}
+  .sent .done{display:flex}
+  .alt{font-size:.85rem;color:var(--fg-2)}
+  .alt a{border-bottom:1px solid var(--accent)}
+
   /* sizes */
   .sizes{margin-top:1rem;padding:clamp(1.25rem,3vw,2rem);background:var(--cotton-2);display:flex;flex-direction:column;gap:1.3rem}
   .sizes h2{font-family:var(--display);font-weight:400;font-size:1.7rem;line-height:1.25}
@@ -122,8 +151,35 @@
           <h2 data-t="sz.h">Choose your size</h2>
           <div class="size-pick" id="sizePick" role="group" aria-label="Size"></div>
           <dl class="dims" id="dims"></dl>
-          <button class="btn" type="button" id="order"><svg width="16" height="16" aria-hidden="true"><use href="#ig"/></svg><span data-t="sz.send">Order this size on Instagram</span></button>
-          <p class="hint" data-t="sz.hint">We copy your order message. Paste it in the Instagram chat and send it.</p>
+          <form class="of" id="orderForm" novalidate>
+            <h3 data-t="of.h">Your details</h3>
+            <div class="row2">
+              <label><span data-t="of.name">Full name</span><input id="fName" name="name" autocomplete="name" required></label>
+              <label><span data-t="of.phone">Phone (WhatsApp)</span><input id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" required></label>
+            </div>
+            <div class="row2">
+              <label><span data-t="of.gov">Governorate</span><select id="fGov" name="gov" required></select></label>
+              <label><span data-t="of.area">Area</span><input id="fArea" name="area" autocomplete="address-level2" required></label>
+            </div>
+            <label><span data-t="of.addr">Full address</span><input id="fAddr" name="address" autocomplete="street-address" required></label>
+            <label><span data-t="of.notes">Notes (optional)</span><textarea id="fNotes" name="notes"></textarea></label>
+            <p class="err" id="fErr" role="alert"></p>
+            <button class="btn" type="submit" id="fSend"><span data-t="of.send">Send my order</span></button>
+            <p class="hint" data-t="of.hint">We will call you on this number to confirm the price and the delivery date.</p>
+          </form>
+          <div class="done" id="done" tabindex="-1">
+            <h3 data-t="of.ok">Thank you, we received your order</h3>
+            <p data-t="of.okP">We will call you soon to confirm the price and the delivery date.</p>
+            <div class="pay">
+              <img src="images/instapay-qr.png" alt="InstaPay QR code for dedro@instapay" width="140" height="160" loading="lazy">
+              <div>
+                <b data-t="pay.h">Pay with InstaPay</b>
+                <p data-t="pay.p">After we confirm the price, scan the code in the InstaPay app or send to this address:</p>
+                <p class="pay-id" dir="ltr">dedro@instapay</p>
+              </div>
+            </div>
+          </div>
+          <p class="alt"><span data-t="of.alt">Prefer to chat?</span> <a href="https://ig.me/m/macrame_markett" data-t="of.altL">Message us on Instagram</a></p>
         </div>
       </div>
     </div>
@@ -203,7 +259,15 @@
       S: 'Small', M: 'Medium', L: 'Large',
       'msg.hi': 'Hello Macrame Market, I would like to order:', 'msg.size': 'Size',
       'toast.ok': 'Message copied. Paste it in the Instagram chat.', 'toast.fail': 'Opening Instagram. Tell us the piece and the size in the chat.',
-      'more.cap': 'Also in the collection', 'ft.by': 'Handmade by m&g'
+      'more.cap': 'Also in the collection', 'ft.by': 'Handmade by m&g',
+      'of.h': 'Your details', 'of.name': 'Full name', 'of.phone': 'Phone (WhatsApp)', 'of.gov': 'Governorate', 'of.pick': 'Choose',
+      'of.area': 'Area', 'of.addr': 'Full address', 'of.notes': 'Notes (optional)', 'of.send': 'Send my order',
+      'of.hint': 'We will call you on this number to confirm the price and the delivery date.',
+      'of.ok': 'Thank you, we received your order', 'of.okP': 'We will call you soon to confirm the price and the delivery date.',
+      'of.err': 'Please fill in all the fields.', 'of.errPhone': 'Please enter a valid phone number.',
+      'of.errSend': 'The order did not go through. Please try again or message us on Instagram.',
+      'of.alt': 'Prefer to chat?', 'of.altL': 'Message us on Instagram',
+      'pay.h': 'Pay with InstaPay', 'pay.p': 'After we confirm the price, scan the code in the InstaPay app or send to this address:'
     },
     ar: {
       'nav.collection': 'المنتجات', 'nav.order': 'طريقة الطلب', 'nav.faq': 'أسئلة متكررة', 'nav.cta': 'اسألنا',
@@ -214,7 +278,15 @@
       S: 'صغير', M: 'وسط', L: 'كبير',
       'msg.hi': 'أهلًا Macrame Market، عايز أطلب:', 'msg.size': 'المقاس',
       'toast.ok': 'الرسالة اتنسخت. الصقها في شات انستجرام.', 'toast.fail': 'هنفتحلك انستجرام. قولنا القطعة والمقاس في الشات.',
-      'more.cap': 'منتجات تانية', 'ft.by': 'شغل إيد من m&g'
+      'more.cap': 'منتجات تانية', 'ft.by': 'شغل إيد من m&g',
+      'of.h': 'بياناتك', 'of.name': 'الاسم بالكامل', 'of.phone': 'رقم الموبايل (واتساب)', 'of.gov': 'المحافظة', 'of.pick': 'اختار',
+      'of.area': 'المنطقة', 'of.addr': 'العنوان بالتفصيل', 'of.notes': 'ملاحظات (لو حابب)', 'of.send': 'ابعت الطلب',
+      'of.hint': 'هنكلمك على الرقم ده نأكد معاك السعر وميعاد التسليم.',
+      'of.ok': 'شكرًا، طلبك وصلنا', 'of.okP': 'هنكلمك قريب نأكد معاك السعر وميعاد التسليم.',
+      'of.err': 'من فضلك املا كل البيانات.', 'of.errPhone': 'من فضلك اكتب رقم موبايل صحيح.',
+      'of.errSend': 'الطلب موصلش. جرب تاني أو ابعتلنا على انستجرام.',
+      'of.alt': 'حابب تكلمنا الأول؟', 'of.altL': 'ابعتلنا على انستجرام',
+      'pay.h': 'ادفع بانستاباي', 'pay.p': 'بعد ما نأكد معاك السعر، امسح الكود من تطبيق انستاباي أو حوّل على العنوان ده:'
     }
   };
 
@@ -245,12 +317,61 @@
   var toastT;
   function toast(s) { var el = $('#toast'); el.textContent = s; el.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(function () { el.classList.remove('on'); }, 4200); }
 
-  $('#order').addEventListener('click', function () {
-    var m = [t('msg.hi'), item[lang].name, t('msg.size') + ': ' + t(size)].join('\n');
-    var win = window.open(IG, '_blank', 'noopener');
-    var done = function (ok) { toast(t(ok ? 'toast.ok' : 'toast.fail')); if (!win) location.href = IG; };
-    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(m).then(function () { done(true); }, function () { done(false); });
-    else done(false);
+  // Orders go to a Google Form on Nader's account; Google adds each order as a row
+  // in its Sheet and emails Nader. Fill action and the entry ids from the form.
+  var FORM = {
+    action: 'https://docs.google.com/forms/d/e/1FAIpQLScKBS_DyMQ-ww4Kvle1-cUACwrSvmEV3F3I5fb3YSMbypdjxQ/formResponse',
+    fields: {
+      product: 'entry.971665767', size: 'entry.81196712', name: 'entry.1073224415', phone: 'entry.1700517822',
+      gov: 'entry.2134945787', area: 'entry.888218971', address: 'entry.249154339', notes: 'entry.1874133660'
+    }
+  };
+  var GOVS = [
+    ['Cairo', 'القاهرة'], ['Giza', 'الجيزة'], ['Alexandria', 'الإسكندرية'], ['Qalyubia', 'القليوبية'], ['Sharqia', 'الشرقية'],
+    ['Dakahlia', 'الدقهلية'], ['Gharbia', 'الغربية'], ['Monufia', 'المنوفية'], ['Beheira', 'البحيرة'], ['Kafr El Sheikh', 'كفر الشيخ'],
+    ['Damietta', 'دمياط'], ['Port Said', 'بورسعيد'], ['Ismailia', 'الإسماعيلية'], ['Suez', 'السويس'], ['Faiyum', 'الفيوم'],
+    ['Beni Suef', 'بني سويف'], ['Minya', 'المنيا'], ['Asyut', 'أسيوط'], ['Sohag', 'سوهاج'], ['Qena', 'قنا'],
+    ['Luxor', 'الأقصر'], ['Aswan', 'أسوان'], ['Red Sea', 'البحر الأحمر'], ['Matrouh', 'مطروح'], ['North Sinai', 'شمال سيناء'],
+    ['South Sinai', 'جنوب سيناء'], ['New Valley', 'الوادي الجديد']
+  ];
+  function fillGovs() {
+    var sel = $('#fGov'), cur = sel.value;
+    sel.innerHTML = '<option value="">' + esc(t('of.pick')) + '</option>' + GOVS.map(function (g) {
+      return '<option value="' + esc(g[0]) + '">' + esc(lang === 'ar' ? g[1] : g[0]) + '</option>';
+    }).join('');
+    sel.value = cur;
+  }
+
+  $('#orderForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = {
+      name: $('#fName'), phone: $('#fPhone'), gov: $('#fGov'), area: $('#fArea'), address: $('#fAddr')
+    };
+    var bad = null;
+    Object.keys(f).forEach(function (k) {
+      var v = f[k].value.trim();
+      var ok = k === 'phone' ? /^\+?[0-9 ]{10,15}$/.test(v.replace(/[-()]/g, '')) : v.length > 1;
+      f[k].setAttribute('aria-invalid', ok ? 'false' : 'true');
+      if (!ok && !bad) bad = k;
+    });
+    if (bad) { $('#fErr').textContent = t(bad === 'phone' ? 'of.errPhone' : 'of.err'); f[bad].focus(); return; }
+    $('#fErr').textContent = '';
+    if (!FORM.action) { $('#fErr').textContent = t('of.errSend'); return; }
+
+    var data = {
+      product: P[slug].en.name, size: T.en[size],
+      name: f.name.value.trim(), phone: f.phone.value.trim(), gov: f.gov.value,
+      area: f.area.value.trim(), address: f.address.value.trim(), notes: $('#fNotes').value.trim()
+    };
+    var body = new URLSearchParams();
+    Object.keys(FORM.fields).forEach(function (k) { if (FORM.fields[k]) body.append(FORM.fields[k], data[k] || ''); });
+    var btn = $('#fSend'); btn.disabled = true;
+    fetch(FORM.action, { method: 'POST', mode: 'no-cors', body: body }).then(function () {
+      document.querySelector('.sizes').classList.add('sent');
+      $('#done').focus();
+    }, function () {
+      $('#fErr').textContent = t('of.errSend'); btn.disabled = false;
+    });
   });
 
   function render() {
@@ -266,7 +387,7 @@
     $('#more').innerHTML = ORDER.filter(function (k) { return k !== slug; }).map(function (k) {
       return '<a href="product.html?p=' + k + '"><div class="ph"><img src="images/' + P[k].photos[0] + '.jpg" alt="" loading="lazy"></div><b>' + esc(P[k][lang].name) + '</b></a>';
     }).join('');
-    renderSizes();
+    renderSizes(); fillGovs();
     var b = $('#lang'); b.textContent = lang === 'ar' ? 'English' : 'العربية'; b.lang = lang === 'ar' ? 'en' : 'ar';
   }
 
